@@ -4,11 +4,44 @@ use super::constants::*;
 pub enum TokenType<'a> {
     Identifier { name: &'a str },
     IntegerLiteral { value: &'a str },
+
+    // Assignment operations
     Equals,
+    Let,
+
+    // Statement terminators
     Semi,
+
+    // Calling conventions
     LParen,
     RParen,
-    Let,
+
+    // Scope control
+    OpenBrace,
+    CloseBrace,
+
+    // Arithmetic operations
+    Plus,
+    Minus,
+    Asterisk,
+    Slash,
+    Percent,
+
+    // Comparison operations
+    EqualsEquals,
+    LessThan,
+    GreaterThan,
+    Not,
+    Or,
+    And,
+
+    // Bitwise operations
+    BitwiseOr,
+    BitwiseAnd,
+    BitwiseXor,
+    BitwiseNot,
+    BitwiseLeftShift,
+    BitwiseRightShift,
 }
 
 #[derive(Debug)]

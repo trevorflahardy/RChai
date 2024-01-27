@@ -1,4 +1,4 @@
-// Identifiers
+// Identifier related
 pub const UNDERSCORE: char = '_';
 
 // Calling conventions
@@ -27,9 +27,9 @@ pub const PERCENT: char = '%';
 pub const EQUALS_EQUALS: &'static str = "==";
 pub const LESS_THAN: char = '<';
 pub const GREATER_THAN: char = '>';
-pub const EXCLAMATION: &'static str = "not";
-pub const PIPE: &'static str = "or";
-pub const AMPERSAND: &'static str = "and";
+pub const NOT: &'static str = "not";
+pub const OR: &'static str = "or";
+pub const AND: &'static str = "and";
 
 // Bitwise operations
 pub const BITWISE_OR: char = '|';
@@ -42,3 +42,4 @@ pub const BITWISE_RIGHT_SHIFT: &'static str = ">>";
 // Reserved kwds for special tokens
 pub const STRUCT: &'static str = "struct";
 pub const FN: &'static str = "fn";
+pub const ASYNC: &'static str = "async"; // TODO: Implement async functions

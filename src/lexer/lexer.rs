@@ -19,6 +19,16 @@ macro_rules! single_token {
     }};
 }
 
+macro_rules! reserved_ident {
+    ($self:ident, $token_type:ident, $start:ident, $end:ident) => {{
+        Some(Token {
+            token_type: TokenType::$token_type,
+            $start,
+            $end,
+        })
+    }};
+}
+
 // The Lexer for the language.
 pub struct Lexer<'a> {
     source: &'a Source<'a>,
@@ -29,6 +39,13 @@ impl<'a> Lexer<'a> {
     pub fn new(source: &'a Source) -> Self {
         Lexer {
             source,
+            current_position: 0,
+        }
+    }
+
+    pub fn iter(&'a self) -> Lexer<'a> {
+        Lexer {
+            source: self.source,
             current_position: 0,
         }
     }
@@ -71,11 +88,10 @@ impl<'a> Iterator for Lexer<'a> {
                     // Check if the identifier is a specific keyword
                     let identifier = &self.source[start..end];
                     match identifier {
-                        LET => Some(Token {
-                            token_type: TokenType::Let,
-                            start,
-                            end,
-                        }),
+                        LET => reserved_ident!(self, Let, start, end),
+                        NOT => reserved_ident!(self, Not, start, end),
+                        OR => reserved_ident!(self, Or, start, end),
+                        AND => reserved_ident!(self, And, start, end),
                         _ => Some(Token {
                             token_type: TokenType::Identifier { name: identifier },
                             start,
@@ -112,6 +128,19 @@ impl<'a> Iterator for Lexer<'a> {
                         SEMI => single_token!(self, Semi),
                         LPAREN => single_token!(self, LParen),
                         RPAREN => single_token!(self, RParen),
+                        OPEN_BRACE => single_token!(self, OpenBrace),
+                        CLOSE_BRACE => single_token!(self, CloseBrace),
+                        PLUS => single_token!(self, Plus),
+                        MINUS => single_token!(self, Minus),
+                        ASTERISK => single_token!(self, Asterisk),
+                        SLASH => single_token!(self, Slash),
+                        PERCENT => single_token!(self, Percent),
+                        LESS_THAN => single_token!(self, LessThan),
+                        GREATER_THAN => single_token!(self, GreaterThan),
+                        BITWISE_OR => single_token!(self, BitwiseOr),
+                        BITWISE_AND => single_token!(self, BitwiseAnd),
+                        BITWISE_XOR => single_token!(self, BitwiseXor),
+                        BITWISE_NOT => single_token!(self, BitwiseNot),
                         _ => {
                             panic!("Unexpected character: {:?}", c);
                         }

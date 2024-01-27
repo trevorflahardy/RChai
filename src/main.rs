@@ -1,9 +1,10 @@
 pub mod lexer;
+pub mod parser;
 
 use lexer::{Lexer, Source};
 
 const SOURCE: &'static str = r#"
-let result = some_function(5);
+let x = 1;
 "#;
 
 fn main() {
