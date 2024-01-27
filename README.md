@@ -17,7 +17,7 @@ In the upcoming releases, I plan to focus on the following areas:
 
 ## Goals
 
-Our main goals for Chai are:
+My main goals for Chai are:
 
 - To create a language that is easy to learn and use, while still being powerful and expressive.
 - To provide a seamless integration with existing Rust code, allowing developers to leverage the Rust ecosystem.
