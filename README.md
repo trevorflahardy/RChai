@@ -27,3 +27,17 @@ Some main goals for Chai are:
 
 - To create a language that is easy to learn and use, while still being powerful and expressive.
 - To provide a seamless integration with existing Rust code, allowing developers to leverage the Rust ecosystem.
+
+## Expected Syntax
+```rust
+struct SomeStruct {
+    ... // Fields
+}
+
+fn some_function(param1: String, param2: u32) -> SomeReturnType {
+    ...
+}
+
+some_function("This is param 1", 10);
+print("Hello from Chai!");
+```
