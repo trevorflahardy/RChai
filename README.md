@@ -8,16 +8,22 @@ The project is currently in active development. Essentially no core features of 
 
 ## Future Plans
 
-In the upcoming releases, I plan to focus on the following areas:
+In the upcoming months, the main focus will be on the following areas:
 
 - Adding support for advanced data structures such as arrays, structs, etc.
 - Implementing a module system to enable code organization and reusability.
 - Enhancing the error handling mechanism to provide more informative error messages.
 - Improving the performance of the compiler and runtime.
 
+
+Looking forward, the following will also be attended to:
+
+- Optimizing the language for speed, safety, and easy control flow.
+- Bootstrapping the compiler for future releases.
+
 ## Goals
 
-My main goals for Chai are:
+Some main goals for Chai are:
 
 - To create a language that is easy to learn and use, while still being powerful and expressive.
 - To provide a seamless integration with existing Rust code, allowing developers to leverage the Rust ecosystem.
