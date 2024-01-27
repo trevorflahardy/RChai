@@ -49,6 +49,7 @@ impl<'a> Iterator for Lexer<'a> {
             }
         }
 
+        // Match it for the next token.
         match self.source.peek(self.current_position) {
             None => None,
             Some(c) => {
