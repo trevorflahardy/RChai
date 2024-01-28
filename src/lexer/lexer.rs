@@ -49,6 +49,10 @@ impl<'a> Lexer<'a> {
             current_position: 0,
         }
     }
+
+    fn advance(&mut self, offset: usize) -> () {
+        self.current_position += offset;
+    }
 }
 
 impl<'a> Iterator for Lexer<'a> {
@@ -72,7 +76,7 @@ impl<'a> Iterator for Lexer<'a> {
             Some(c) => {
                 if is_identifier_start(c) {
                     let start = self.current_position;
-                    self.current_position += 1;
+                    self.advance(1);
 
                     // Peek until we find a non-alphabetic or identifier character.
                     match self
@@ -100,7 +104,7 @@ impl<'a> Iterator for Lexer<'a> {
                     }
                 } else if c.is_numeric() {
                     let start = self.current_position;
-                    self.current_position += 1;
+                    self.advance(1);
 
                     // Peek until we find a non-numeric character.
                     match self
@@ -130,7 +134,7 @@ impl<'a> Iterator for Lexer<'a> {
                             // If the next character is an equals sign, we have a double equals token
                             Some(next_char) if next_char == EQUALS => {
                                 let start = self.current_position;
-                                self.current_position += 2;
+                                self.advance(2);
                                 let end = self.current_position;
 
                                 Some(Token {
@@ -163,7 +167,7 @@ impl<'a> Iterator for Lexer<'a> {
                             // If the next character is an equals sign, we have a not equals token
                             Some(next_char) if next_char == EQUALS => {
                                 let start = self.current_position;
-                                self.current_position += 2;
+                                self.advance(2);
                                 let end = self.current_position;
 
                                 Some(Token {
