@@ -1,12 +1,17 @@
 use crate::lexer::Token;
-use std::boxed::Box;
 
 pub trait Node {}
 pub trait NodeExpression: Node {}
-pub trait NodeStatement: Node {}
 
-pub struct NodeModule {
-    pub body: Vec<Box<dyn Node>>,
+pub struct NodeStatement<'a> {
+    pub expression: &'a dyn NodeExpression,
+    pub token: &'a Token<'a>,
+}
+
+impl Node for NodeStatement<'_> {}
+
+pub struct NodeModule<'a> {
+    pub statements: Vec<NodeStatement<'a>>,
 }
 
 pub struct NodeIdentifier<'a> {
