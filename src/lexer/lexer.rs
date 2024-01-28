@@ -155,8 +155,36 @@ impl<'a> Iterator for Lexer<'a> {
                         ASTERISK => single_token!(self, Asterisk),
                         SLASH => single_token!(self, Slash),
                         PERCENT => single_token!(self, Percent),
-                        LESS_THAN => single_token!(self, LessThan),
-                        GREATER_THAN => single_token!(self, GreaterThan),
+                        LESS_THAN => match self.source.peek(self.current_position + 1) {
+                            Some(next_char) if next_char == LESS_THAN => {
+                                // Bitwise left shift found
+                                let start = self.current_position;
+                                self.advance(2);
+                                let end = self.current_position;
+
+                                Some(Token {
+                                    token_type: TokenType::BitwiseLeftShift,
+                                    start,
+                                    end,
+                                })
+                            }
+                            _ => single_token!(self, LessThan),
+                        },
+                        GREATER_THAN => match self.source.peek(self.current_position + 1) {
+                            Some(next_char) if next_char == GREATER_THAN => {
+                                // Bitwise left shift found
+                                let start = self.current_position;
+                                self.advance(2);
+                                let end = self.current_position;
+
+                                Some(Token {
+                                    token_type: TokenType::BitwiseRightShift,
+                                    start,
+                                    end,
+                                })
+                            }
+                            _ => single_token!(self, GreaterThan),
+                        },
                         BITWISE_OR => single_token!(self, BitwiseOr),
                         BITWISE_AND => single_token!(self, BitwiseAnd),
                         BITWISE_XOR => single_token!(self, BitwiseXor),
