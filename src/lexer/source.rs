@@ -17,17 +17,8 @@ impl<'a> Source<'a> {
         Source { underlying }
     }
 
-    pub fn peek_unchecked(&self, offset: usize) -> Option<char> {
-        self.chars().nth(offset)
-    }
-
     pub fn peek(&self, offset: usize) -> Option<char> {
-        // Check that the offset is within the bounds of the string.
-        if self.len() > offset {
-            self.peek_unchecked(offset)
-        } else {
-            None
-        }
+        self.chars().nth(offset)
     }
 
     pub fn peek_until<F>(&self, offset: usize, predicate: F) -> Option<usize>
