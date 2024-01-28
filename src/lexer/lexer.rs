@@ -116,15 +116,31 @@ impl<'a> Iterator for Lexer<'a> {
                     // Parse the integer
                     let integer = &self.source[start..self.current_position];
                     Some(Token {
-                        token_type: TokenType::IntegerLiteral { value: integer },
+                        token_type: TokenType::IntegerLiteral {
+                            value: integer.parse().unwrap(),
+                        },
                         start,
                         end,
                     })
                 } else {
-                    // This is some other type of character, check if it's a single character token.
-                    // If not, we have some sort of error
+                    // This is some other type of character, check if it's some type of multi-character
+                    // token (like != or ==)
                     match c {
-                        EQUALS => single_token!(self, Equals),
+                        EQUALS => match self.source.peek(self.current_position + 1) {
+                            // If the next character is an equals sign, we have a double equals token
+                            Some(next_char) if next_char == EQUALS => {
+                                let start = self.current_position;
+                                self.current_position += 2;
+                                let end = self.current_position;
+
+                                Some(Token {
+                                    token_type: TokenType::EqualsEquals,
+                                    start,
+                                    end,
+                                })
+                            }
+                            _ => single_token!(self, Equals),
+                        },
                         SEMI => single_token!(self, Semi),
                         LPAREN => single_token!(self, LParen),
                         RPAREN => single_token!(self, RParen),
@@ -141,6 +157,23 @@ impl<'a> Iterator for Lexer<'a> {
                         BITWISE_AND => single_token!(self, BitwiseAnd),
                         BITWISE_XOR => single_token!(self, BitwiseXor),
                         BITWISE_NOT => single_token!(self, BitwiseNot),
+
+                        // Check for != token
+                        '!' => match self.source.peek(self.current_position + 1) {
+                            // If the next character is an equals sign, we have a not equals token
+                            Some(next_char) if next_char == EQUALS => {
+                                let start = self.current_position;
+                                self.current_position += 2;
+                                let end = self.current_position;
+
+                                Some(Token {
+                                    token_type: TokenType::NotEquals,
+                                    start,
+                                    end,
+                                })
+                            }
+                            _ => panic!("Unexpected character: {:?}", c),
+                        },
                         _ => {
                             panic!("Unexpected character: {:?}", c);
                         }

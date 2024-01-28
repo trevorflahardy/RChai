@@ -24,6 +24,7 @@ pub const SLASH: char = '/';
 pub const PERCENT: char = '%';
 
 // Reserved for comparison operations
+pub const NOT_EQUALS: &'static str = "!=";
 pub const EQUALS_EQUALS: &'static str = "==";
 pub const LESS_THAN: char = '<';
 pub const GREATER_THAN: char = '>';

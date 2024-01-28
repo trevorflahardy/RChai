@@ -3,7 +3,7 @@ use super::constants::*;
 #[derive(Debug)]
 pub enum TokenType<'a> {
     Identifier { name: &'a str },
-    IntegerLiteral { value: &'a str },
+    IntegerLiteral { value: u32 },
 
     // Assignment operations
     Equals,
@@ -29,6 +29,7 @@ pub enum TokenType<'a> {
 
     // Comparison operations
     EqualsEquals,
+    NotEquals,
     LessThan,
     GreaterThan,
     Not,
