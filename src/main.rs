@@ -2,9 +2,10 @@ pub mod lexer;
 pub mod parser;
 
 use lexer::{Lexer, Source};
+use parser::Parser;
 
 const SOURCE: &'static str = r#"
-let x = 1;
+let x = z == y;
 "#;
 
 fn main() {
@@ -12,7 +13,7 @@ fn main() {
     let source = Source::new(&source_str);
     let lexer = Lexer::new(&source);
 
-    for token in lexer {
-        println!("{:?}", token);
-    }
+    let tokens = lexer.iter().collect::<Vec<_>>();
+
+    let parser = Parser::new(&tokens);
 }
