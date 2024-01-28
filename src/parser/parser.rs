@@ -1,5 +1,5 @@
 use super::nodes::*;
-use crate::lexer::{Lexer, Token, TokenType};
+use crate::lexer::{Token, TokenType};
 
 pub struct Parser<'a> {
     tokens: &'a [Token<'a>],
