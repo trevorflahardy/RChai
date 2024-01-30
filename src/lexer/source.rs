@@ -1,5 +1,6 @@
 use std::ops::Deref;
 
+#[derive(Clone, Copy)]
 pub struct Source<'a> {
     underlying: &'a String,
 }

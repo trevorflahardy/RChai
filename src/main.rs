@@ -13,7 +13,7 @@ fn main() {
     let source = Source::new(&source_str);
     let lexer = Lexer::new(&source);
 
-    let tokens = lexer.iter().collect::<Vec<_>>();
+    let tokens = lexer.into_iter().collect::<Vec<_>>();
 
     let parser = Parser::new(&tokens);
 }

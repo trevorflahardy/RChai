@@ -4,7 +4,6 @@ use super::{
     token::{is_identifier_start, Token, TokenType},
 };
 
-// Macro for single constant tokens.
 macro_rules! single_token {
     ($self:ident, $token_type:ident) => {{
         let start = $self.current_position;
@@ -29,13 +28,18 @@ macro_rules! reserved_ident {
     }};
 }
 
-// The Lexer for the language.
+/// A simple lexer representation to break down raw source inputs into a stream of tokens.
+#[derive(Clone, Copy)]
 pub struct Lexer<'a> {
     source: &'a Source<'a>,
     current_position: usize,
 }
 
 impl<'a> Lexer<'a> {
+    /// Create a new Lexer from a source.
+    ///
+    /// # Arguments
+    /// `source` - The source to lex.
     pub fn new(source: &'a Source) -> Self {
         Lexer {
             source,
@@ -43,13 +47,10 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    pub fn iter(&'a self) -> Lexer<'a> {
-        Lexer {
-            source: self.source,
-            current_position: 0,
-        }
-    }
-
+    /// Advance the current position of the lex by a given offset.
+    ///
+    /// # Arguments
+    /// `offset` - The offset to advance the current position by.
     fn advance(&mut self, offset: usize) -> () {
         self.current_position += offset;
     }
