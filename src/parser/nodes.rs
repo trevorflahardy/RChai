@@ -10,7 +10,7 @@ pub struct NodeStatement<'a> {
 
 impl Node for NodeStatement<'_> {}
 
-pub struct NodeModule<'a> {
+pub struct NodeProgram<'a> {
     pub statements: Vec<NodeStatement<'a>>,
 }
 
